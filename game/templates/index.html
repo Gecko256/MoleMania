@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="static/favicon.ico"/>
+    <title>Mole Mania</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        } 
+
+        h1 {
+            margin-top: 35px;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        .mole {
+            margin-top: 50px;
+            cursor: pointer;
+            position: absolute;
+            display: inline-block;
+        }
+
+        html {
+            background: url(/static/MMgrass.png) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+			cursor: url('/static/toyhammer.png'), auto;
+        }
+
+        button {
+            background: none;
+            border: none;
+            padding: 0;
+			cursor: url('/static/toyhammer.png'), auto;
+        }
+
+        .win-message {
+            color: black;
+            font-weight: bold;
+        }
+		
+		#reset-container {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<h1>Mole Mania</h1>
+<h1>Hit The BIG Mole 15 Times to WIN!</h1>
+<h1>Points: {{ points }}</h1>
+{% if points >= 15 %}
+    <h2 class="win-message">Congratulations! You Beat The Mole!</h2>
+    <div id="replay-button">
+        <form action="/play-again" method="get">
+            <button type="submit"></button>
+        </form>
+    </div>
+{% else %}
+<form action="/point" method="post">
+    <button type="submit">
+        <img draggable="false" src="/static/diglett.png" alt="Button Image" style="position: absolute; left: {{ mole_x }}px; top: {{ mole_y }}px;">
+    </button>
+</form>
+{% endif %}
+<div id="reset-container">
+<form action="/reset" method="post">
+    <button type="submit">
+        <img draggable="false" src="/static/reset_button.png" alt="Button Image" style = width="305" height="305">
+    </button>
+</form>
+</div>
+</body>
+</html>
